@@ -9,6 +9,8 @@ pub mod faster_bottom_up;
 pub mod faster_greedy_dag;
 pub mod global_greedy_dag;
 pub mod greedy_dag;
+pub mod sampling_dag;
+
 #[cfg(feature = "ilp-cbc")]
 pub mod ilp_cbc;
 
@@ -148,7 +150,7 @@ impl ExtractionResult {
         self.tree_cost_rec(egraph, &node_roots, &mut HashMap::new())
     }
 
-    fn tree_cost_rec(
+    pub(crate) fn tree_cost_rec(
         &self,
         egraph: &EGraph,
         roots: &[NodeId],
