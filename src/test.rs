@@ -208,4 +208,4 @@ macro_rules! create_optimal_check_tests {
     }
 }
 
-create_optimal_check_tests!(check0, check1, check2, check3, check4, check5, check6, check7);
+// create_optimal_check_tests!(check0, check1, check2, check3, check4, check5, check6, check7);

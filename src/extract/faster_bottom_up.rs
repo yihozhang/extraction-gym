@@ -18,6 +18,16 @@ pub struct FasterBottomUpExtractor;
 
 impl Extractor for FasterBottomUpExtractor {
     fn extract(&self, egraph: &EGraph, _roots: &[ClassId]) -> ExtractionResult {
+        self.extract_with_costs(egraph, _roots).0
+    }
+}
+
+impl FasterBottomUpExtractor {
+    pub(crate) fn extract_with_costs(
+        &self,
+        egraph: &EGraph,
+        _roots: &[ClassId],
+    ) -> (ExtractionResult, FxHashMap<ClassId, Cost>) {
         let mut parents = IndexMap::<ClassId, Vec<NodeId>>::with_capacity(egraph.classes().len());
         let n2c = |nid: &NodeId| egraph.nid_to_cid(nid);
         let mut analysis_pending = UniqueQueue::default();
@@ -58,7 +68,7 @@ impl Extractor for FasterBottomUpExtractor {
             }
         }
 
-        result
+        (result, costs)
     }
 }
 
